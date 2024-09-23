@@ -7,7 +7,7 @@
 # server process.
 
 # Basic Site Settings
-locale                   : "sp-MX"
+locale                   : "en-US"
 title                    : "Dyana Velz"
 title_separator          : "-"
 name                     : &name "Dyana Vera"
@@ -24,9 +24,9 @@ author:
   avatar           : "profile.jpg"
   name             : "Dyana Velz"
   pronouns         : # example: "she/her"  
-  bio              : "Aspiring cat"
+  bio              : "Born by spontaneous generation"
   location         : "Earth"
-  employer         : "Dyv Atelier"
+  employer         : "Dyv Atelier / Neurophilus"
   uri              : # URL
   email            : "deerdyana@gmail.com" 
 
@@ -50,27 +50,27 @@ author:
   # Social media
   bluesky          : # Replace this with you Bluesky username
   facebook         : # Username
-  flickr           : "Dyana Velz"
+  flickr           : "DyanaVelz"
   foursquare       : # Username
-  goodreads        : "Dyana Velz"
+  goodreads        : "DyanaVelz"
   google_plus      : # Username
   keybase          : # Username
-  instagram        : "Dyana Velz"
+  instagram        : "DyanaVelz"
   lastfm           : # Username
   linkedin         : # Username
   mastodon         : # URL
   medium           : # URL
-  pinterest        : "Dyana Velz"
+  pinterest        : "DyanaVelz"
   soundcloud       : # Username
-  steam            : # Username
+  steam            : "DyanaVelz"
   telegram         : # URL
   tumblr           : # Username
-  twitter          : "Dyana Velz"
+  twitter          : "DyanaVelz"
   vine             : # Username
   weibo            : # Username
   wikipedia        : # Username
   xing             : # Username
-  youtube          : # Username
+  youtube          : @DyanaVelz
   zhihu            : # URL
 
 # Publication Category - The following the list of publication categories and their headings
@@ -116,7 +116,7 @@ staticman:
       options:
         format           : "iso8601" # "iso8601" (default), "timestamp-seconds", "timestamp-milliseconds"
 atom_feed:
-  hide                   : false     # change to true to hide the RSS feed in the footer
+  hide                   : true     # change to true to hide the RSS feed in the footer
   path                   : # blank (default) uses feed.xml
 
 
@@ -244,7 +244,7 @@ defaults:
       type: pages
     values:
       layout: single
-      author_profile: true
+      author_profile: false
   # _teaching
   - scope:
       path: ""
