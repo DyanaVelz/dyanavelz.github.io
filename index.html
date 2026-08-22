@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dyana Velz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0221;
+    --panel:#1a0b34;
+    --border:#5b3a9c;
+    --text:#f3ecff;
+    --muted:#b79ce8;
+    --pink:#ff8fd8;
+    --magenta:#ff2fdb;
+    --blue:#4da6ff;
+    --purple:#a970ff;
+    --white:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      linear-gradient(180deg, rgba(13,2,33,0.9) 0%, rgba(26,11,52,0.8) 55%, rgba(13,2,33,0.95) 100%),
+      repeating-linear-gradient(0deg, transparent 0 38px, rgba(77,166,255,0.07) 38px 39px),
+      repeating-linear-gradient(90deg, transparent 0 38px, rgba(255,143,216,0.05) 38px 39px),
+      var(--bg);
+    color:var(--text);
+    font-family:"Pixelify Sans",sans-serif;
+    padding:40px 16px 60px;
+  }
+  .frame{
+    max-width:560px;
+    width:100%;
+    margin:0 auto;
+    text-align:center;
+    padding:36px 28px 30px;
+    border:2px solid var(--border);
+    border-radius:6px;
+    background:rgba(26,11,52,0.55);
+    box-shadow:
+      0 0 0 6px rgba(13,2,33,0.6),
+      0 0 0 7px rgba(255,255,255,0.55),
+      0 0 40px rgba(169,112,255,0.35),
+      0 0 70px rgba(77,166,255,0.15);
+  }
+  .ornament{
+    font-size:13px;
+    color:var(--white);
+    letter-spacing:.3em;
+    margin-bottom:18px;
+    text-shadow:0 0 8px rgba(255,255,255,0.6);
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0px);}
+    50%{transform:translateY(-10px);}
+  }
+  .moon-wrap{
+    width:130px;
+    margin:0 auto 4px;
+    animation:float 5s ease-in-out infinite;
+    filter:drop-shadow(0 0 22px rgba(169,112,255,0.6)) drop-shadow(0 0 34px rgba(77,166,255,0.3));
+  }
+  .cat-wrap{
+    width:130px;
+    margin:-18px auto 8px;
+    animation:float 4.2s ease-in-out infinite;
+    filter:drop-shadow(0 0 14px rgba(255,143,216,0.55));
+  }
+  h1{
+    font-family:"Press Start 2P",monospace;
+    font-weight:400;
+    font-size:20px;
+    margin:6px 0 10px;
+    color:#fff;
+    text-shadow:0 0 10px var(--magenta), 0 0 24px var(--purple);
+    letter-spacing:1px;
+    line-height:1.5;
+  }
+  .tagline{
+    font-family:"Pixelify Sans",sans-serif;
+    font-weight:600;
+    font-size:14px;
+    color:var(--pink);
+    letter-spacing:.03em;
+    margin:0 0 22px;
+    font-style:italic;
+  }
+  .badge-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+    margin-bottom:6px;
+  }
+  .badge-row a{
+    font-family:"Press Start 2P",monospace;
+    font-size:9px;
+    color:var(--blue);
+    text-decoration:none;
+    padding:7px 10px;
+    border:1px solid var(--border);
+    border-radius:3px;
+    background:rgba(13,2,33,0.6);
+    transition:box-shadow .15s, color .15s, border-color .15s;
+  }
+  .badge-row a:hover{
+    color:#fff;
+    border-color:var(--white);
+    box-shadow:0 0 12px rgba(255,255,255,0.5);
+  }
+  .divider{
+    color:var(--white);
+    font-size:12px;
+    letter-spacing:.4em;
+    margin:20px 0;
+    opacity:.7;
+  }
+  .marquee{
+    overflow:hidden;
+    white-space:nowrap;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:8px 0;
+    margin-bottom:4px;
+  }
+  .marquee span{
+    display:inline-block;
+    font-family:"Press Start 2P",monospace;
+    font-size:10px;
+    color:var(--muted);
+    padding-left:100%;
+    animation:scroll 16s linear infinite;
+  }
+  @keyframes scroll{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-100%);}
+  }
+
+  .game-section{max-width:560px;margin:28px auto 0;text-align:center;}
+  .game-title{font-family:"Press Start 2P",monospace;font-size:11px;color:var(--white);margin-bottom:10px;letter-spacing:.05em;}
+  canvas{
+    display:block;
+    width:100%;
+    max-width:560px;
+    margin:0 auto;
+    background:#0d0221;
+    border:1px solid var(--border);
+    border-radius:4px;
+    touch-action:none;
+  }
+  .hint{
+    font-family:"Press Start 2P",monospace;
+    font-size:10px;
+    color:var(--blue);
+    margin-top:14px;
+    letter-spacing:.05em;
+  }
+  .score{
+    font-family:"Press Start 2P",monospace;
+    font-size:11px;
+    color:var(--white);
+    margin-top:10px;
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="ornament">❦ EST. 1927 ❦</div>
+
+  <div class="moon-wrap">
+    <svg viewBox="0 0 130 130" width="100%" height="100%">
+      <defs>
+        <radialGradient id="moon" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="45%" stop-color="#ff8fd8"/>
+          <stop offset="100%" stop-color="#a970ff"/>
+        </radialGradient>
+      </defs>
+      <circle cx="65" cy="65" r="58" fill="url(#moon)"/>
+      <circle cx="46" cy="50" r="9" fill="#a970ff" opacity="0.35"/>
+      <circle cx="80" cy="72" r="13" fill="#a970ff" opacity="0.3"/>
+      <circle cx="70" cy="42" r="5" fill="#a970ff" opacity="0.3"/>
+    </svg>
+  </div>
+
+  <div class="cat-wrap">
+    <svg viewBox="0 0 130 110" width="100%" height="100%">
+      <defs>
+        <linearGradient id="catg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="55%" stop-color="#ff8fd8"/>
+          <stop offset="100%" stop-color="#a970ff"/>
+        </linearGradient>
+      </defs>
+
+      <!-- book stack -->
+      <rect x="30" y="90" width="70" height="12" rx="2" fill="#4da6ff"/>
+      <rect x="34" y="79" width="62" height="12" rx="2" fill="#ff8fd8"/>
+      <rect x="38" y="68" width="54" height="12" rx="2" fill="#a970ff"/>
+
+      <!-- cat tail -->
+      <path d="M92 66 Q112 60 106 40" fill="none" stroke="url(#catg)" stroke-width="7" stroke-linecap="round"/>
+
+      <!-- cat body -->
+      <ellipse cx="65" cy="60" rx="24" ry="18" fill="url(#catg)"/>
+
+      <!-- cat head -->
+      <circle cx="65" cy="34" r="20" fill="url(#catg)"/>
+
+      <!-- ears -->
+      <path d="M48 24 L42 6 L58 18 Z" fill="url(#catg)"/>
+      <path d="M82 24 L88 6 L72 18 Z" fill="url(#catg)"/>
+      <path d="M50 20 L47 11 L56 17 Z" fill="#ff2fdb" opacity="0.6"/>
+      <path d="M80 20 L83 11 L74 17 Z" fill="#ff2fdb" opacity="0.6"/>
+
+      <!-- face -->
+      <circle cx="58" cy="34" r="2.4" fill="#0d0221"/>
+      <circle cx="72" cy="34" r="2.4" fill="#0d0221"/>
+      <path d="M62 41 Q65 44 68 41" fill="none" stroke="#0d0221" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M40 36 L52 34 M40 40 L52 38" stroke="#0d0221" stroke-width="1" opacity="0.5"/>
+      <path d="M90 36 L78 34 M90 40 L78 38" stroke="#0d0221" stroke-width="1" opacity="0.5"/>
+
+      <!-- paws on books -->
+      <ellipse cx="50" cy="76" rx="7" ry="6" fill="url(#catg)"/>
+      <ellipse cx="80" cy="76" rx="7" ry="6" fill="url(#catg)"/>
+    </svg>
+  </div>
+
+  <h1>Dyana Velz</h1>
+  <p class="tagline">AKA Dyv0iD <br> born by spontaneous generation, raised on moonlight and books</p>
+
+  <div class="badge-row">
+    <a href="https://github.com/DyanaVelz">github</a>
+    <a href="https://instagram.com/DyanaVelz">IG</a>
+    <a href="https://www.pinterest.com/DyanaVelz">pinterest</a>
+    <a href="https://www.flickr.com/dyanamanzana">flickr</a>
+    <a href="https://x.com/DyanaVelz">x</a>
+    <a href="https://www.goodreads.com/DyanaVelz">goodReads</a>
+    <a href="https://steamcommunity.com/id/DyanaVelz">steam</a>
+    <a href="mailto:hidyanavelz.com">eMail</a>
+    <a href="https://www.dyanavelz.com">futureWebsite</a>
+  </div>
+
+  <div class="divider">✦ ❤︎ ✦</div>
+
+  <div class="marquee">
+    <span>this page is under construction forever ‧₊˚⋆ I'm just learning/playing ‧₊˚⋆ go finish your current read ‧₊˚⋆</span>
+  </div>
+</div>
+
+<div class="game-section">
+  <div class="game-title">✦ JUMP THE BOOKS ✦</div>
+  <canvas id="game" width="560" height="180"></canvas>
+  <div class="score" id="score">SCORE 0</div>
+  <div class="hint" id="hint">PRESS SPACE OR TAP TO JUMP</div>
+</div>
+
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+const groundY = 140;
+
+let player = { x: 50, y: groundY - 34, w: 34, h: 34, vy: 0, jumping: false };
+const GRAVITY = 0.9;
+const JUMP_VELOCITY = -13.5;
+
+let obstacles = [];
+let speed = 5;
+let frame = 0;
+let score = 0;
+let gameOver = false;
+let started = false;
+
+function reset() {
+  player.y = groundY - player.h;
+  player.vy = 0;
+  player.jumping = false;
+  obstacles = [];
+  speed = 5;
+  frame = 0;
+  score = 0;
+  gameOver = false;
+  started = true;
+}
+
+function spawnObstacle() {
+  const stackCount = 1 + Math.floor(Math.random() * 3);
+  obstacles.push({ x: W + 10, w: 20, stack: stackCount });
+}
+
+function jump() {
+  if (!started) { reset(); return; }
+  if (gameOver) { reset(); return; }
+  if (!player.jumping) {
+    player.vy = JUMP_VELOCITY;
+    player.jumping = true;
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space') { e.preventDefault(); jump(); }
+});
+canvas.addEventListener('pointerdown', jump);
+
+function drawGrid() {
+  ctx.strokeStyle = 'rgba(77,166,255,0.15)';
+  ctx.lineWidth = 1;
+  for (let x = 0; x < W; x += 30) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+}
+
+function drawGround() {
+  ctx.strokeStyle = '#4da6ff';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(0, groundY);
+  ctx.lineTo(W, groundY);
+  ctx.stroke();
+}
+
+function drawPlayer() {
+  const g = ctx.createLinearGradient(player.x, player.y, player.x, player.y + player.h);
+  g.addColorStop(0, '#ffffff');
+  g.addColorStop(0.55, '#ff8fd8');
+  g.addColorStop(1, '#a970ff');
+  ctx.fillStyle = g;
+  // head
+  ctx.beginPath();
+  ctx.arc(player.x + player.w/2, player.y + 12, 11, 0, Math.PI*2);
+  ctx.fill();
+  // ears
+  ctx.beginPath();
+  ctx.moveTo(player.x + 6, player.y + 6);
+  ctx.lineTo(player.x + 2, player.y - 4);
+  ctx.lineTo(player.x + 12, player.y + 3);
+  ctx.closePath();
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(player.x + player.w - 6, player.y + 6);
+  ctx.lineTo(player.x + player.w - 2, player.y - 4);
+  ctx.lineTo(player.x + player.w - 12, player.y + 3);
+  ctx.closePath();
+  ctx.fill();
+  // body
+  ctx.beginPath();
+  ctx.ellipse(player.x + player.w/2, player.y + 24, 14, 11, 0, 0, Math.PI*2);
+  ctx.fill();
+}
+
+const bookColors = ['#4da6ff', '#ff8fd8', '#a970ff'];
+
+function drawObstacles() {
+  obstacles.forEach(o => {
+    let y = groundY;
+    for (let i = 0; i < o.stack; i++) {
+      const bh = 12;
+      y -= bh;
+      ctx.fillStyle = bookColors[i % bookColors.length];
+      ctx.fillRect(o.x, y, o.w, bh - 2);
+    }
+    o.topY = y;
+    o.h = groundY - y;
+  });
+}
+
+function update() {
+  if (!started || gameOver) return;
+
+  frame++;
+  if (frame % Math.max(30, 70 - Math.floor(speed*2)) === 0) spawnObstacle();
+
+  player.vy += GRAVITY;
+  player.y += player.vy;
+  if (player.y > groundY - player.h) {
+    player.y = groundY - player.h;
+    player.vy = 0;
+    player.jumping = false;
+  }
+
+  obstacles.forEach(o => o.x -= speed);
+  obstacles = obstacles.filter(o => o.x + o.w > 0);
+
+  obstacles.forEach(o => {
+    const oy = o.topY !== undefined ? o.topY : groundY - (o.stack * 12);
+    const oh = o.h !== undefined ? o.h : (o.stack * 12);
+    if (
+      player.x < o.x + o.w &&
+      player.x + player.w > o.x &&
+      player.y < oy + oh &&
+      player.y + player.h > oy
+    ) {
+      gameOver = true;
+    }
+  });
+
+  score += 1;
+  if (score % 500 === 0) speed += 0.4;
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  drawGrid();
+  drawGround();
+  drawObstacles();
+  drawPlayer();
+
+  if (!started) {
+    ctx.fillStyle = '#f3ecff';
+    ctx.font = '12px "Pixelify Sans", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('press space or tap to begin', W/2, H/2);
+  } else if (gameOver) {
+    ctx.fillStyle = '#ff5277';
+    ctx.font = '12px "Pixelify Sans", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('game over — press space or tap to retry', W/2, H/2);
+  }
+
+  document.getElementById('score').textContent = 'SCORE ' + Math.floor(score/10);
+}
+
+function loop() {
+  update();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+reset();
+started = false;
+loop();
+</script>
+</body>
+</html>
